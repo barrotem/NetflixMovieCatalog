@@ -1,11 +1,15 @@
+#This Unit was modified as part of the CICD with GitHub milestone
+#The purpose is to perform Continuous Deployment on an EC2 instance
+#The milestone copies all GitHub files to ~/app directory, so all internal files will refer to it.
+
 [Unit]
-Description=Netflix-Movie-Catalog bind daemon
-Documentation=/home/ubuntu/NetflixMovieCatalog/README.md
+Description=Netflix-Movie-Catalog bind daemon v.2
+Documentation=~/app/NetflixMovieCatalog/README.md
 After=network.target
 
 [Service]
-WorkingDirectory=/home/ubuntu/NetflixMovieCatalog/
-ExecStart=bash /home/ubuntu/NetflixMovieCatalog/netflix-mc-start.sh
+WorkingDirectory=~/app/NetflixMovieCatalog/
+ExecStart=bash netflix-mc-start.sh
 Type=simple
 Restart=always
 
