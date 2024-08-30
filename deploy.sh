@@ -27,4 +27,6 @@ else
   pip install -r requirements.txt
 fi
 #We are done checking requirements, restart the netflix-movie-catalog service in order to host the new server configuration.
+#Make sure to reload daemons, for the netflix-mc.service might have changed
+sudo systemctl daemon-reload
 sudo systemctl restart netflix-mc.service
