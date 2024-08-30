@@ -4,11 +4,11 @@
 
 [Unit]
 Description=Netflix-Movie-Catalog bind daemon v.2
-Documentation=${HOME}/app/README.md
+Documentation=/home/ubuntu/app/README.md
 After=network.target
 
 [Service]
-WorkingDirectory=${HOME}/app/
+WorkingDirectory=/home/ubuntu/app/
 ExecStart=bash netflix-mc-start.sh
 Type=simple
 Restart=always
