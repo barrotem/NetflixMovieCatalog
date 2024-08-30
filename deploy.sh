@@ -11,9 +11,8 @@ then
   #Issue pip freeze to list all installed packages with regards to requirements file.
   #Redirect stderror to stdout (terminal), redirect stdout to /dev/null.
   #Pass stderror (now stdout) of pip freeze to grep, looking for missing packages errors.
-  unsatisfied_req=$(pip freeze -r requirements.txt 2>&1 1>/dev/null | grep -q "WARNING")
-  echo "unsatisfied_req : ${unsatisfied_req}, pwd : ${PWD}"
-  if [[ $unsatisfied_req -eq 0 ]]
+  pip freeze -r requirements.txt 2>&1 1>/dev/null | grep -q "WARNING" #Check if packages are missing. 0 If True, 1 if False
+  if [[ $? -eq 0 ]] #If exit code is 0, packages are missing.
   then
     echo "[$PWD/deploy.sh:ERROR]: Unsatisfied requirements for running NetflixMovieCatalog. Installing requirements."
     #Some packages are missing, install requirements
