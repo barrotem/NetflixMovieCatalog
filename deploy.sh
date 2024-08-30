@@ -7,7 +7,7 @@ cd ~/app/
 if [[ -d venv ]]
 then
   #If the venv directory exists under the App's repo, verify requirements
-  source /venv/bin/activate #Active venv
+  source venv/bin/activate #Active venv
   #Issue pip freeze to list all installed packages with regards to requirements file.
   #Redirect stderror to stdout (terminal), redirect stdout to /dev/null.
   #Pass stderror (now stdout) of pip freeze to grep, looking for missing packages errors.
@@ -17,6 +17,8 @@ then
     echo "[$PWD/deploy.sh:ERROR]: Unsatisfied requirements for running NetflixMovieCatalog. Installing requirements."
     #Some packages are missing, install requirements
     pip install -r requirements.txt
+  else
+    echo "[$PWD/deploy.sh:SUCCESS]: All requirements already satisfied. Preparing to run Netflix-MC"
   fi
 else
   #The venv directory doesn't exist. Perform full requirements installation according to README.md

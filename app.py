@@ -16,7 +16,7 @@ with open('data/data_movies.json', 'r') as f:
 
 @app.route("/", methods=['GET'])
 def home():
-    return "Hi! This app is an API, there is no UI ;-) v2.1 \nThis app was deployed AUTOMATICALLY, using GitHub Aactions as a CD tool"
+    return "Hi! This app is an API, there is no UI ;-) v2.2\\nThis app was deployed AUTOMATICALLY, using GitHub Aactions as a CD tool"
 
 
 @app.route('/discover')
