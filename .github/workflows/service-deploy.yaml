@@ -6,7 +6,7 @@ on:
       - main
 
 env:
-  EC2_PUBLIC_IP: 13.51.159.144  # This represents my EC2 public ip.
+  EC2_PUBLIC_IP: 13.60.91.168  # This represents my EC2 public ip.
   SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}  # This secret is defined in my GitHub repository settings.
 
 jobs:
