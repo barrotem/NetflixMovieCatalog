@@ -2,7 +2,7 @@
 
 #According to NetflixMovieCatalog's CD workflow, this script will be run from the home directory on the ubuntu machine.
 #Verify venv and requirements installations and restart the server according to the new application code.
-
+# Sample comment
 cd ~/app/
 if [[ -d venv ]]
 then
