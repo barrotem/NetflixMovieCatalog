@@ -65,7 +65,7 @@ def update_popularity():
 
 @app.route('/status')
 def status():
-    return 'OK. This app was built using git-hub actions. Another change'
+    return 'OK. This app was built using git-hub actions.'
 
 
 if __name__ == '__main__':
