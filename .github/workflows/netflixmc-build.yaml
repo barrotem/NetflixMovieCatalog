@@ -26,7 +26,7 @@ jobs:
     steps:
       - name: Trigger the deployment workflow
         run: |
-          IMAGE_NAME=IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/netflix-mc:github-wf-${{ github.run_number }}
+          IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/netflix-mc:github-wf-${{ github.run_number }}
           curl -X POST \
            -H "Authorization: Bearer ${{ secrets.NETFLIX_INFRA_ACCESS_TOKEN }}" \
            -H "Accept: application/vnd.github.v3+json" \
