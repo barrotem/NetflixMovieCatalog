@@ -1,0 +1,56 @@
+# This workflow is configured as part of argo-cd
+name: NetflixMovieCatalog stack build-deploy
+
+on:
+  push:
+    branches:
+     - main
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build and push docker images
+        run: |
+          # Build docker image
+          docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_PASSWORD }}
+
+          IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/netflix-mc:github-wf-deploy-${{ github.run_number }}
+          docker build -t $IMAGE_NAME .
+          docker push $IMAGE_NAME
+          echo "Pushed $IMAGE_NAME to dockerhub"
+
+      - name: Checkout infrastructure repo
+        uses: actions/checkout@v3
+        with:
+          repository: barrotem/${{ vars.INFRA_REPO }}
+          token: ${{ secrets.NETFLIX_INFRA_ACCESS_TOKEN }}  # The GITHUB_TOKEN secret is a GitHub access token.
+          path: ./${{ vars.INFRA_REPO }}
+
+      - name: Update YAML manifests
+        run: |
+          cd ./${{ vars.INFRA_REPO }}/k8s/NetflixMovieCatalog
+          
+          # Update yaml deployment file to match the new netflix-mc image
+          IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/netflix-mc:github-wf-deploy-${{ github.run_number }}
+          yq e ".spec.template.spec.containers[0].image = \"$IMAGE_NAME\"" -i deployment.yaml
+          echo "Updated ${{ vars.INFRA_REPO }}'s NetflixMovieCatalog deployment"
+
+      - name: Commit and Push changes
+        run: |
+          pwd
+          cd ./${{ vars.INFRA_REPO }}/k8s/NetflixMovieCatalog
+          # Commit & push changes to infra repo
+          git config --local user.email "github@actions"
+          git config --local user.name "github-actions"
+          
+          git add deployment.yaml
+          IMAGE_NAME=${{ secrets.DOCKERHUB_USERNAME }}/netflix-mc:github-wf-deploy-${{ github.run_number }}
+          git commit -m "Updated NetflixMovieCatalog image to $IMAGE_NAME"
+          git push origin main
+          echo "Pushed changes to ${{ vars.INFRA_REPO }}"
