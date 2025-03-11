@@ -27,7 +27,7 @@ def get_discover():
     """
     type_ = request.args.get('type')
     data = data_tv if type_ == 'tv' else data_movies
-    genre_id = request.args.get('genre')
+    genre_id = request.args.get('genre')#dummy
 
     if not genre_id:
         results = random.sample(list(data.values()), 20)
