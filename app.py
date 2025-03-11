@@ -1,7 +1,7 @@
 from flask import Flask, request, jsonify
 import json
 import random
-import boto3
+#import boto3
 
 app = Flask(__name__)
 
@@ -33,16 +33,17 @@ def get_discover():
         results = random.sample(list(data.values()), 20)
     else:
         results = []
-        # Query for all movies with genre_id
-        dynamodb = boto3.resource('dynamodb')
-        table = dynamodb.Table('MoviesByGenre')
+        # # Query for all movies with genre_id
+        # dynamodb = boto3.resource('dynamodb')
+        # table = dynamodb.Table('MoviesByGenre')
+        #
+        # response = table.query(
+        #     KeyConditionExpression=boto3.dynamodb.conditions.Key('genre_id').eq(27)
+        # )
+        # print(response['items'])
+        # # for item in response['Items']:
+        # #     print(item)
 
-        response = table.query(
-            KeyConditionExpression=boto3.dynamodb.conditions.Key('genre_id').eq(27)
-        )
-        print(response['items'])
-        # for item in response['Items']:
-        #     print(item)
 
 
         for item in data.values():
@@ -77,7 +78,7 @@ def update_popularity():
 
 @app.route('/status')
 def status():
-    return 'OK. This app was built using git-hub actions. Another change - ALON'
+    return 'OK. This app was built using git-hub actions. '
 
 
 if __name__ == '__main__':
