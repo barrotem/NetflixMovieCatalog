@@ -4,4 +4,4 @@ venv/
 .idea/
 .gitignore
 .dockerignore
-pip.conf
+#pip.conf
