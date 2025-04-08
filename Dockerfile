@@ -6,7 +6,7 @@ FROM python:$PY_VER
 # Copy source code
 WORKDIR /app
 COPY pip.conf .
-ENV PIP_CONFIG_FILE=/app/pip.conf
+ARG PIP_CONFIG_FILE=/app/pip.conf
 # venv? isolated already so not required - install dependencies
 COPY requirements.txt .
 RUN pip install -r requirements.txt

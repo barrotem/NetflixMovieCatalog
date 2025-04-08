@@ -41,7 +41,7 @@ pipeline {
                 sh '''
                   IMAGE_FULL_NAME=$DOCKER_USERNAME/$IMAGE_BASE_NAME:$IMAGE_TAG
 
-                  docker build --network=host -t $IMAGE_FULL_NAME .
+                  docker build -t $IMAGE_FULL_NAME .
                   docker push $IMAGE_FULL_NAME
                 '''
             }
